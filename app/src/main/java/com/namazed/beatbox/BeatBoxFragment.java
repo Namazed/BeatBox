@@ -11,8 +11,17 @@ import android.view.ViewGroup;
 
 
 public class BeatBoxFragment extends Fragment {
+    private BeatBox beatBox;
+
     public static BeatBoxFragment newInstance() {
         return new BeatBoxFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        beatBox = new BeatBox(getActivity());
     }
 
     @Nullable
@@ -22,7 +31,7 @@ public class BeatBoxFragment extends Fragment {
         RecyclerView recyclerView =
                 (RecyclerView) view.findViewById(R.id.fragment_beat_box_recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
-        recyclerView.setAdapter(new SoundAdapter());
+        recyclerView.setAdapter(new SoundAdapter(beatBox.getSounds()));
 
         return view;
     }

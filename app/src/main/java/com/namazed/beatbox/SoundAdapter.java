@@ -6,8 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.util.List;
+
 
 public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundHolder> {
+
+    private List<Sound> sounds;
+
+    public SoundAdapter(List<Sound> sounds) {
+        this.sounds = sounds;
+    }
 
     @Override
     public SoundHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -19,21 +27,28 @@ public class SoundAdapter extends RecyclerView.Adapter<SoundAdapter.SoundHolder>
 
     @Override
     public void onBindViewHolder(SoundHolder holder, int position) {
-
+        Sound sound = sounds.get(position);
+        holder.bindSound(sound);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return sounds.size();
     }
 
     public class SoundHolder extends RecyclerView.ViewHolder {
         private Button soundButton;
+        private Sound sound;
 
         public SoundHolder(View itemView) {
             super(itemView);
 
             soundButton = (Button) itemView.findViewById(R.id.list_item_sound_button);
+        }
+
+        public void bindSound(Sound sound) {
+            this.sound = sound;
+            soundButton.setText(this.sound.getName());
         }
     }
 }
